@@ -1,27 +1,37 @@
-# BadwalletWeb
+# 🚀 Projet BadWallet - Frontend (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Bienvenue sur le dépôt Frontend du projet **BadWallet**. 
+Il s'agit de l'interface utilisateur (Single Page Application) développée pour interagir avec le backend Java Spring Boot dans le cadre de l'évaluation d'Architecture Logicielle.
 
-## Development server
+## 🎯 Fonctionnalités de l'Interface
+L'application s'adapte dynamiquement en fonction de l'utilisateur connecté :
+- **Espace Agent (Admin)** : Permet de lister les portefeuilles existants, d'en créer de nouveaux, et d'effectuer des opérations de dépôt et de retrait pour les clients.
+- **Espace Client** : Permet au client de visualiser son solde, d'afficher l'historique de ses transactions, de transférer de l'argent et de payer des factures (Senelec, Woyofal, ISM).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🔄 Communication avec le Backend
+L'intégralité de l'interface est "branchée" en temps réel sur l'API principale (`badwallet-api`) qui doit tourner sur `localhost:8080`.
+- **Aucune donnée n'est factice côté client.** Chaque action (connexion, rafraîchissement du solde, paiement) déclenche une requête HTTP via le module `HttpClient` d'Angular.
+- **Gestion du CORS** : L'API Spring Boot a été configurée pour accepter les requêtes provenant du port 4200.
+- **Encodage Réseau** : Les numéros de téléphone contenant un symbole `+` (ex: `+221770000003`) sont automatiquement encodés (`encodeURIComponent`) avant d'être envoyés dans l'URL pour éviter que Tomcat ne les interprète comme des espaces.
 
-## Code scaffolding
+## 🛠️ Stack Technique
+- **Framework** : Angular 17
+- **Style** : TailwindCSS (pour une interface moderne et responsive)
+- **Gestion d'état** : Utilisation des **Signals** d'Angular via un store minimaliste (`balance.store.ts`) pour une réactivité instantanée sans requêtes serveur inutiles.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Lancer l'interface en local
 
-## Build
+Avant de lancer le frontend, assurez-vous que les **deux terminaux du backend** (`badwallet-api` sur le port 8080 et `payment-service` sur le port 8081) sont en cours d'exécution.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Ouvrez un terminal dans le dossier du frontend et exécutez :
+```bash
+npm install
+npm start
+```
 
-## Running unit tests
+L'application sera accessible sur : **http://localhost:4200**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🔑 Identifiants de Test
+Pour faciliter l'évaluation de l'application, les jeux de données suivants sont déjà injectés en base de données par le backend au démarrage :
+- **Compte Client (avec factures à payer)** : Entrez le numéro `+221770000003` sur la page de connexion.
+- **Compte Agent (Dashboard Admin)** : Entrez le numéro `+221770000000` sur la page de connexion.
