@@ -7,6 +7,7 @@ export interface WalletDto {
   phoneNumber: string;
   email: string;
   initialBalance: number;
+  balance?: number;
   code: string;
   currency: string;
 }
@@ -64,8 +65,8 @@ export class WalletApiService {
     return this.http.post<any>(`${this.BASE}/transfer`, payload);
   }
 
-  deposit(phone: string, payload: { amount: number, paymentMethod: string }): Observable<any> {
-    return this.http.post<any>(`${this.BASE}/${phone}/deposit`, payload);
+  deposit(id: number, payload: { amount: number, paymentMethod: string }): Observable<any> {
+    return this.http.post<any>(`${this.BASE}/${id}/deposit`, payload);
   }
 
   withdraw(payload: DepositWithdrawDto): Observable<any> {
