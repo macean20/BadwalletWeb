@@ -50,11 +50,11 @@ export class WalletApiService {
   }
 
   getWallet(phone: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE}/${phone}`);
+    return this.http.get<any>(`${this.BASE}/${encodeURIComponent(phone)}`);
   }
 
   getBalance(phone: string): Observable<number> {
-    return this.http.get<number>(`${this.BASE}/${phone}/balance`);
+    return this.http.get<number>(`${this.BASE}/${encodeURIComponent(phone)}/balance`);
   }
 
   createWallet(payload: WalletDto): Observable<any> {
@@ -74,6 +74,6 @@ export class WalletApiService {
   }
 
   getTransactions(phone: string): Observable<TransactionDto[]> {
-    return this.http.get<TransactionDto[]>(`${this.BASE}/${phone}/transactions`);
+    return this.http.get<TransactionDto[]>(`${this.BASE}/${encodeURIComponent(phone)}/transactions`);
   }
 }

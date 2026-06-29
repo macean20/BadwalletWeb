@@ -23,7 +23,7 @@ export class BillingApiService {
     if (unite) {
       params = params.set('unite', unite);
     }
-    return this.http.get<FactureDto[]>(`${this.BASE_EXTERNAL}/${clientCode}/current`, { params });
+    return this.http.get<FactureDto[]>(`${this.BASE_EXTERNAL}/${encodeURIComponent(clientCode)}/current`, { params });
   }
 
   payBills(payload: { phoneNumber: string, serviceName: string, factureReferences: string[] }): Observable<any> {
