@@ -39,9 +39,15 @@ import { ToastService } from '../../../core/utils/toast.service';
         </app-button>
       </div>
 
-      <div class="mt-6 text-center">
+      <div class="mt-6 text-center space-y-2 border-t border-slate-100 pt-4">
+        <p class="text-xs text-slate-500 font-medium">
+          💡 Numéros pour la démonstration :
+        </p>
         <p class="text-xs text-slate-500">
-          Pour la démo, utilisez le numéro généré par le backend (ex: +221779998877)
+          <strong>Client :</strong> +221770000001 (Solde : 50 000 XOF)
+        </p>
+        <p class="text-xs text-slate-500">
+          <strong>Agent / Admin :</strong> +221770000000
         </p>
       </div>
     </form>
@@ -58,7 +64,7 @@ export class LoginComponent {
     private toastService: ToastService
   ) {
     this.loginForm = this.fb.group({
-      phone: ['+221779998877', [Validators.required, Validators.pattern(/^\+221[7][05678]\d{7}$/)]]
+      phone: ['+221770000001', [Validators.required, Validators.pattern(/^\+221[7][05678]\d{7}$/)]]
     });
   }
 
@@ -76,7 +82,12 @@ export class LoginComponent {
       const phone = this.loginForm.value.phone;
       this.balanceStore.setCurrentPhone(phone);
       this.toastService.success('Connexion réussie !');
-      this.router.navigate(['/dashboard']);
+      
+      if (phone === '+221770000000') {
+        this.router.navigate(['/admin/wallets']);
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
       this.isLoading = false;
     }, 600);
   }
