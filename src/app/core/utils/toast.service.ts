@@ -27,6 +27,10 @@ export class ToastService {
     this.show(message, 'error');
   }
 
+  info(message: string) {
+    this.show(message, 'info');
+  }
+
   remove(id: number) {
     this.toasts.update(t => t.filter(toast => toast.id !== id));
   }
